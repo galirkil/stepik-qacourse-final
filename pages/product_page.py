@@ -4,9 +4,9 @@ from pages.locators import ProductPageLocators
 
 class ProductPage(BasePage):
     def should_be_add_to_basket_button(self):
-        self.is_element_present(
+        assert self.is_element_present(
             *ProductPageLocators.ADD_TO_BASKET_BUTTON
-        )
+        ), 'There is no "add to basket" button!'
 
     def click_add_to_basket_button(self):
         self.driver.find_element(
@@ -51,3 +51,12 @@ class ProductPage(BasePage):
             f'got {current_total!r} instead'
         )
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(
+            *ProductPageLocators.SUCCESS_MSG
+        ), 'Success message is presented, but should not be'
+
+    def should_be_success_message_disappear(self):
+        assert self.is_disappeared(
+            *ProductPageLocators.SUCCESS_MSG
+        ), 'Success message should disappear, but it is not'
