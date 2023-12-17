@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
 
-class MainPageLocators:
+class BasePageLocators:
     LOGIN_LINK = (By.CSS_SELECTOR, '#login_link')
 
 
@@ -19,4 +19,4 @@ class ProductPageLocators:
     BASKET_SUCCESS_MSG = 'has been added to your basket'
     BASKET_TOTAL_MSG = 'Your basket total is now'
     MESSAGES_BLOCK = (By.ID, 'messages')
-
+    SUCCESS_MSG = (By.CSS_SELECTOR, '.alert-success')
