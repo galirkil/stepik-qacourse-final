@@ -14,7 +14,7 @@ URL = 'http://selenium1py.pythonanywhere.com/ru' \
         8, 9
     ]
 )
-def t(driver, offer_id):
+def test_guest_can_add_product_to_basket(driver, offer_id):
     link = f'http://selenium1py.pythonanywhere.com/catalogue/' \
            f'coders-at-work_207/?promo=offer{offer_id}'
     page = ProductPage(driver, link)
