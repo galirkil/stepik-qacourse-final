@@ -21,6 +21,7 @@ class TestUserAddToBasketFromProductPage:
         login_page.register_new_user(email, 'password123456789')
         login_page.should_be_authorized_user()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, driver):
         link = 'http://selenium1py.pythonanywhere.com/catalogue/' \
                'coders-at-work_207/'
@@ -40,6 +41,23 @@ class TestUserAddToBasketFromProductPage:
         page = ProductPage(driver, URL)
         page.open()
         page.should_not_be_success_message()
+
+
+@pytest.mark.need_review
+def test_guest_can_add_product_to_basket(driver):
+    link = 'http://selenium1py.pythonanywhere.com/catalogue/' \
+           'coders-at-work_207/'
+    page = ProductPage(driver, link)
+    page.open()
+    page.should_be_add_to_basket_button()
+    product_name = page.get_product_name()
+    product_price = page.get_product_price()
+    page.click_add_to_basket_button()
+    page.should_be_added_to_basket_msg(
+        ProductPageLocators.BASKET_SUCCESS_MSG)
+    page.should_be_basket_total_msg(ProductPageLocators.BASKET_TOTAL_MSG)
+    page.should_be_expected_product_name_in_msg(product_name)
+    page.should_be_expected_total_in_msg(product_price)
 
 
 @pytest.mark.xfail
@@ -68,7 +86,8 @@ def test_guest_should_see_login_link_on_product_page(driver):
     page.should_be_login_link()
 
 
-def test_guest_can_go_to_login_from_product_page(driver):
+@pytest.mark.need_review
+def test_guest_can_go_to_login_page_from_product_page(driver):
     link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue' \
            '/the-city-and-the-stars_95/'
     page = ProductPage(driver, link)
@@ -76,6 +95,7 @@ def test_guest_can_go_to_login_from_product_page(driver):
     page.go_to_login_page()
 
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(driver):
     page = ProductPage(driver, URL)
     page.open()
