@@ -1,5 +1,5 @@
-from .base_page import BasePage
-from .locators import LoginPageLocators
+from pages.base_page import BasePage
+from pages.locators import LoginPageLocators
 
 
 class LoginPage(BasePage):
@@ -23,3 +23,17 @@ class LoginPage(BasePage):
         assert self.is_element_present(*LoginPageLocators.REGISTER_FORM), (
             'Registration form is not presented'
         )
+
+    def register_new_user(self, email: str, password: str):
+        self.driver.find_element(
+            *LoginPageLocators.REGISTER_FORM_EMAIL
+        ).send_keys(email)
+        self.driver.find_element(
+            *LoginPageLocators.REGISTER_FORM_PASS1
+        ).send_keys(password)
+        self.driver.find_element(
+            *LoginPageLocators.REGISTER_FORM_PASS2
+        ).send_keys(password)
+        self.driver.find_element(
+            *LoginPageLocators.REGISTER_SUBMIT
+        ).click()
